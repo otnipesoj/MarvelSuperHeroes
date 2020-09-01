@@ -6,11 +6,9 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
     let itemsTable = UITableView()
     
     var character: Character!
-    var items: [Item] = []
-    var comics: [Item] = []
-    var events: [Item] = []
-    var series: [Item] = []
-    var stories: [Item] = []
+    var itemsToDisplay: [Item] = []
+    
+    private let characterDetailsAPI = CharacterDetailsApi()
     
     init(character: Character) {
         super.init(nibName: nil, bundle: nil)
@@ -39,7 +37,7 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         itemsTable.estimatedRowHeight = 600
         itemsTable.dataSource = self
         itemsTable.delegate = self
-        itemsTable.register(ItemCell.self, forCellReuseIdentifier: ItemCell.reuseId)
+        itemsTable.register(ItemCell.self, forCellReuseIdentifier: ItemCell.reuseIdentifier)
         itemsTable.removeExcessCells()
         
         let padding: CGFloat = 20
@@ -85,8 +83,8 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
     }
     
     private func getComics() {
-        guard comics.isEmpty else {
-            self.items = comics
+        guard character.comics.isEmpty else {
+            self.itemsToDisplay = character.comics
             DispatchQueue.main.async {
                 self.itemsTable.reloadData()
                 self.view.bringSubviewToFront(self.itemsTable)
@@ -96,27 +94,25 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         
         showLoadingView()
         
-        NetworkManager.shared.getComics(containingCharacter: character.id) { [weak self] result in
+        characterDetailsAPI.getComics(containingCharacter: character.id) { [weak self] result in
             guard let self = self else { return }
-            self.dismissLoadingView()
-            
-            switch result {
-            case .success(let response):
-                self.comics = response.data.results
-                self.items = self.comics
-                DispatchQueue.main.async {
+                self.dismissLoadingView()
+    
+                switch result {
+                case .success(let response):
+                    self.character.comics = response.data.results.map(Item.init)
+                    self.itemsToDisplay = self.character.comics
                     self.itemsTable.reloadData()
                     self.view.bringSubviewToFront(self.itemsTable)
+                case .failure(let error):
+                    self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
-            case .failure(let error):
-                self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
-            }
         }
     }
     
     private func getEvents() {
-        guard events.isEmpty else {
-            self.items = events
+        guard character.events.isEmpty else {
+            self.itemsToDisplay = character.events
             DispatchQueue.main.async {
                 self.itemsTable.reloadData()
                 self.view.bringSubviewToFront(self.itemsTable)
@@ -126,27 +122,25 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         
         showLoadingView()
         
-        NetworkManager.shared.getEvents(containingCharacter: character.id) { [weak self] result in
+        characterDetailsAPI.getEvents(containingCharacter: character.id) { [weak self] result in
             guard let self = self else { return }
-            self.dismissLoadingView()
-            
-            switch result {
-            case .success(let response):
-                self.events = response.data.results
-                self.items = self.events
-                DispatchQueue.main.async {
+                self.dismissLoadingView()
+    
+                switch result {
+                case .success(let response):
+                    self.character.events = response.data.results.map(Item.init)
+                    self.itemsToDisplay = self.character.events
                     self.itemsTable.reloadData()
                     self.view.bringSubviewToFront(self.itemsTable)
+                case .failure(let error):
+                    self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
-            case .failure(let error):
-                self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
-            }
         }
     }
     
     private func getSeries() {
-        guard series.isEmpty else {
-            self.items = series
+        guard character.series.isEmpty else {
+            self.itemsToDisplay = character.series
             DispatchQueue.main.async {
                 self.itemsTable.reloadData()
                 self.view.bringSubviewToFront(self.itemsTable)
@@ -156,27 +150,25 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         
         showLoadingView()
         
-        NetworkManager.shared.getSeries(containingCharacter: character.id) { [weak self] result in
+        characterDetailsAPI.getSeries(containingCharacter: character.id) { [weak self] result in
             guard let self = self else { return }
-            self.dismissLoadingView()
-            
-            switch result {
-            case .success(let response):
-                self.series = response.data.results
-                self.items = self.series
-                DispatchQueue.main.async {
+                self.dismissLoadingView()
+    
+                switch result {
+                case .success(let response):
+                    self.character.series = response.data.results.map(Item.init)
+                    self.itemsToDisplay = self.character.series
                     self.itemsTable.reloadData()
                     self.view.bringSubviewToFront(self.itemsTable)
+                case .failure(let error):
+                    self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
-            case .failure(let error):
-                self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
-            }
         }
     }
     
     private func getStories() {
-        guard stories.isEmpty else {
-            self.items = stories
+        guard character.stories.isEmpty else {
+            self.itemsToDisplay = character.stories
             DispatchQueue.main.async {
                 self.itemsTable.reloadData()
                 self.view.bringSubviewToFront(self.itemsTable)
@@ -186,21 +178,19 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         
         showLoadingView()
         
-        NetworkManager.shared.getStories(containingCharacter: character.id) { [weak self] result in
+        characterDetailsAPI.getStories(containingCharacter: character.id) { [weak self] result in
             guard let self = self else { return }
-            self.dismissLoadingView()
-            
-            switch result {
-            case .success(let response):
-                self.stories = response.data.results
-                self.items = self.stories
-                DispatchQueue.main.async {
+                self.dismissLoadingView()
+    
+                switch result {
+                case .success(let response):
+                    self.character.stories = response.data.results.map(Item.init)
+                    self.itemsToDisplay = self.character.stories
                     self.itemsTable.reloadData()
                     self.view.bringSubviewToFront(self.itemsTable)
+                case .failure(let error):
+                    self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
-            case .failure(let error):
-                self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
-            }
         }
     }
 }
@@ -208,12 +198,12 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
 extension MarvelCharacterDetailsItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return itemsToDisplay.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.reuseId) as! ItemCell
-        cell.set(item: items[indexPath.row])
+        let cell: ItemCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.set(item: itemsToDisplay[indexPath.row])
         return cell
     }
 }
