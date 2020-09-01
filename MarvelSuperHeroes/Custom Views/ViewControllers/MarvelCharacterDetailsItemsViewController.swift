@@ -48,6 +48,7 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         let elementsSegmentedControlLeadingAnchorConstraint = elementsSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding)
         let itemsTableLeadingAnchorConstraint = itemsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding)
         let itemsTableTopAnchorConstraint = itemsTable.topAnchor.constraint(equalTo: elementsSegmentedControl.bottomAnchor, constant: padding)
+        
         elementsSegmentedControlLeadingAnchorConstraint.priority = UILayoutPriority(750)
         itemsTableLeadingAnchorConstraint.priority = UILayoutPriority(750)
         itemsTableTopAnchorConstraint.priority = UILayoutPriority(750)
@@ -106,6 +107,7 @@ extension MarvelCharacterDetailsItemsViewController {
             }
             return
         }
+        
         
         showLoadingView()
         
