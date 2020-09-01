@@ -6,16 +6,17 @@ enum ThumbnailSize: String {
     case landscapeIncredible = "landscape_incredible"
 }
 
-struct Thumbnail: Codable, Hashable {
+struct Thumbnail: Hashable {
     let path: String
     let imageExtension: String
     
     func fullPath(thumbnailSize: ThumbnailSize) -> String {
         return "\(path)/\(thumbnailSize.rawValue).\(imageExtension)"
     }
-    
-    enum CodingKeys: String, CodingKey {
-        case path = "path"
-        case imageExtension = "extension"
+}
+
+extension Thumbnail {
+    init(thumbnail: CharactersApi.ApiThumbnail) {
+        self.init(path: thumbnail.path, imageExtension: thumbnail.imageExtension)
     }
 }

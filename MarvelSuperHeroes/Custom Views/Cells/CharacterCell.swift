@@ -2,8 +2,6 @@ import UIKit
 
 class CharacterCell: UICollectionViewCell {
     
-    static let reuseId = "CharacterCell"
-    
     var character: Character!
     
     let characterThumbnail = MarvelCharacterThumbnail(frame: .zero)
