@@ -13,7 +13,7 @@ class MarvelDataLoadingViewController: UIViewController {
     var containerView: UIView!
     
     func showLoadingView() {
-        containerView = UIView(frame: view.bounds)
+        containerView = UIView(frame: .zero)
         view.addSubview(containerView)
         
         containerView.backgroundColor = .systemBackground
@@ -22,6 +22,7 @@ class MarvelDataLoadingViewController: UIViewController {
         UIView.animate(withDuration: 0.25) { self.containerView.alpha = 0.8 }
         
         let activityIndicator = UIActivityIndicatorView(style: .large)
+        containerView.pinToEdges(of: view)
         containerView.addSubview(activityIndicator)
         
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false

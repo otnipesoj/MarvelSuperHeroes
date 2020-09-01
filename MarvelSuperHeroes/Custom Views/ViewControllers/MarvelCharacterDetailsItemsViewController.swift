@@ -48,6 +48,7 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         let elementsSegmentedControlLeadingAnchorConstraint = elementsSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding)
         let itemsTableLeadingAnchorConstraint = itemsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding)
         let itemsTableTopAnchorConstraint = itemsTable.topAnchor.constraint(equalTo: elementsSegmentedControl.bottomAnchor, constant: padding)
+        
         elementsSegmentedControlLeadingAnchorConstraint.priority = UILayoutPriority(750)
         itemsTableLeadingAnchorConstraint.priority = UILayoutPriority(750)
         itemsTableTopAnchorConstraint.priority = UILayoutPriority(750)
@@ -81,7 +82,22 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
             break
         }
     }
+}
+
+extension MarvelCharacterDetailsItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return itemsToDisplay.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: ItemCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.set(item: itemsToDisplay[indexPath.row])
+        return cell
+    }
+}
+
+extension MarvelCharacterDetailsItemsViewController {
     private func getComics() {
         guard character.comics.isEmpty else {
             self.itemsToDisplay = character.comics
@@ -91,6 +107,7 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
             }
             return
         }
+        
         
         showLoadingView()
         
@@ -192,18 +209,5 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
         }
-    }
-}
-
-extension MarvelCharacterDetailsItemsViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemsToDisplay.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ItemCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.set(item: itemsToDisplay[indexPath.row])
-        return cell
     }
 }
