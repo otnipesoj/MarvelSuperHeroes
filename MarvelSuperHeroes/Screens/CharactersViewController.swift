@@ -20,6 +20,8 @@ class CharactersViewController: MarvelDataLoadingViewController {
     
     var timer: Timer?
     
+    let charactersAPI = CharactersApi()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         title = "Characters"
@@ -54,7 +56,7 @@ class CharactersViewController: MarvelDataLoadingViewController {
     
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.configureThreeColumnFlowLayout(in: view))
-        collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: CharacterCell.reuseId)
+        collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: CharacterCell.reuseIdentifier)
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         view.addSubview(collectionView)
@@ -62,7 +64,7 @@ class CharactersViewController: MarvelDataLoadingViewController {
     
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Character>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, character) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.reuseId, for: indexPath) as! CharacterCell
+            let cell: CharacterCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.set(character: character)
             return cell;
         })
@@ -72,7 +74,7 @@ class CharactersViewController: MarvelDataLoadingViewController {
         showLoadingView()
         isLoadingMoreCharacters = true
         
-        NetworkManager.shared.getCharacters(page: page, matching: characterName) { [weak self] result in
+        charactersAPI.getCharacters(page: page, matching: characterName) { [weak self] result in
             guard let self = self else { return }
             self.dismissLoadingView()
             
@@ -81,7 +83,7 @@ class CharactersViewController: MarvelDataLoadingViewController {
                 self.presentAlertOnMainThread(title: "Error on getting characters", message: error.rawValue, buttonTitle: "ok")
                 
             case .success(let response):
-                self.updateUI(with: response.data.results)
+                self.updateUI(with: response.data.results.map(Character.init))
             }
             
             self.isLoadingMoreCharacters = false
@@ -99,9 +101,7 @@ class CharactersViewController: MarvelDataLoadingViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Character>()
         snapshot.appendSections([.main])
         snapshot.appendItems(characters)
-        DispatchQueue.main.async {
-            self.dataSource.apply(snapshot, animatingDifferences: true)
-        }
+        self.dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 

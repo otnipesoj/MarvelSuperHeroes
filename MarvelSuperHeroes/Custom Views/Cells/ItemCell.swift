@@ -10,7 +10,6 @@ import UIKit
 
 class ItemCell: UITableViewCell {
 
-    static let reuseId = "ItemCell"
     let itemTitle = MarvelTitleLabel(textAlignment: .left, fontSize: 15)
     let itemDescription = MarvelBodyLabel(textAlignment: .left)
     
