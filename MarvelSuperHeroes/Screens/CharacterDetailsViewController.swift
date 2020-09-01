@@ -36,7 +36,7 @@ class CharacterDetailsViewController: UIViewController {
     
     private func configureUIElements() {
         self.add(childVC: MarvelCharacterDetailsHeaderViewController(character: character), to: headerView)
-        self.add(childVC: MarvelCharacterDetailsItemsViewController(character: character), to: itemsView)
+        self.add(childVC: MarvelCharacterDetailsFooterViewController(character: character), to: itemsView)
     }
     
     private func layoutUI() {
@@ -59,12 +59,5 @@ class CharacterDetailsViewController: UIViewController {
             itemsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             itemsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
-    }
-    
-    private func add(childVC: UIViewController, to containerView: UIView) {
-        addChild(childVC)
-        containerView.addSubview(childVC.view)
-        childVC.view.frame = containerView.bounds
-        childVC.didMove(toParent: self)
     }
 }

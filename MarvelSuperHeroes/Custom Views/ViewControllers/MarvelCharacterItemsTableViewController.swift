@@ -1,12 +1,10 @@
 import UIKit
 
-class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController {
-    
-    let elementsSegmentedControl = UISegmentedControl(items: ["Comics", "Events", "Stories", "Series"])
-    let itemsTable = UITableView()
-    
+class MarvelCharacterItemsTableViewController : MarvelDataLoadingViewController {
     var character: Character!
     var itemsToDisplay: [Item] = []
+    
+    let tableView = UITableView()
     
     private let characterDetailsAPI = CharacterDetailsApi()
     
@@ -21,7 +19,8 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        configureTableView()
+        layoutTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,63 +28,23 @@ class MarvelCharacterDetailsItemsViewController: MarvelDataLoadingViewController
         getComics()
     }
     
-    private func configure() {
-        view.addSubview(elementsSegmentedControl)
-        view.addSubview(itemsTable)
-        
-        itemsTable.rowHeight = UITableView.automaticDimension
-        itemsTable.estimatedRowHeight = 600
-        itemsTable.dataSource = self
-        itemsTable.delegate = self
-        itemsTable.register(ItemCell.self, forCellReuseIdentifier: ItemCell.reuseIdentifier)
-        itemsTable.removeExcessCells()
-        
-        let padding: CGFloat = 20
-        
-        elementsSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        itemsTable.translatesAutoresizingMaskIntoConstraints = false
-        
-        let elementsSegmentedControlLeadingAnchorConstraint = elementsSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding)
-        let itemsTableLeadingAnchorConstraint = itemsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding)
-        let itemsTableTopAnchorConstraint = itemsTable.topAnchor.constraint(equalTo: elementsSegmentedControl.bottomAnchor, constant: padding)
-        
-        elementsSegmentedControlLeadingAnchorConstraint.priority = UILayoutPriority(750)
-        itemsTableLeadingAnchorConstraint.priority = UILayoutPriority(750)
-        itemsTableTopAnchorConstraint.priority = UILayoutPriority(750)
-        
-        NSLayoutConstraint.activate([
-            elementsSegmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            elementsSegmentedControlLeadingAnchorConstraint,
-            elementsSegmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            
-            itemsTableTopAnchorConstraint,
-            itemsTableLeadingAnchorConstraint,
-            itemsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            itemsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding)
-        ])
-        
-        elementsSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
-        elementsSegmentedControl.selectedSegmentIndex = 0
+    private func configureTableView() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
+        tableView.removeExcessCells()
+        tableView.register(ItemCell.self, forCellReuseIdentifier: ItemCell.reuseIdentifier)
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
-    @objc func segmentedControlValueChanged(_ segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            getComics()
-        case 1:
-            getEvents()
-        case 2:
-            getSeries()
-        case 3:
-            getStories()
-        default:
-            break
-        }
+    private func layoutTableView() {
+        view.addSubview(tableView)
+        
+        tableView.pinToEdges(of: view)
     }
 }
 
-extension MarvelCharacterDetailsItemsViewController: UITableViewDelegate, UITableViewDataSource {
-    
+extension MarvelCharacterItemsTableViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsToDisplay.count
     }
@@ -97,13 +56,13 @@ extension MarvelCharacterDetailsItemsViewController: UITableViewDelegate, UITabl
     }
 }
 
-extension MarvelCharacterDetailsItemsViewController {
-    private func getComics() {
+extension MarvelCharacterItemsTableViewController {
+    func getComics() {
         guard character.comics.isEmpty else {
             self.itemsToDisplay = character.comics
             DispatchQueue.main.async {
-                self.itemsTable.reloadData()
-                self.view.bringSubviewToFront(self.itemsTable)
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
             }
             return
         }
@@ -119,20 +78,20 @@ extension MarvelCharacterDetailsItemsViewController {
                 case .success(let response):
                     self.character.comics = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.comics
-                    self.itemsTable.reloadData()
-                    self.view.bringSubviewToFront(self.itemsTable)
+                    self.tableView.reloadData()
+                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
         }
     }
     
-    private func getEvents() {
+    func getEvents() {
         guard character.events.isEmpty else {
             self.itemsToDisplay = character.events
             DispatchQueue.main.async {
-                self.itemsTable.reloadData()
-                self.view.bringSubviewToFront(self.itemsTable)
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
             }
             return
         }
@@ -147,20 +106,20 @@ extension MarvelCharacterDetailsItemsViewController {
                 case .success(let response):
                     self.character.events = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.events
-                    self.itemsTable.reloadData()
-                    self.view.bringSubviewToFront(self.itemsTable)
+                    self.tableView.reloadData()
+                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
         }
     }
     
-    private func getSeries() {
+    func getSeries() {
         guard character.series.isEmpty else {
             self.itemsToDisplay = character.series
             DispatchQueue.main.async {
-                self.itemsTable.reloadData()
-                self.view.bringSubviewToFront(self.itemsTable)
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
             }
             return
         }
@@ -175,20 +134,20 @@ extension MarvelCharacterDetailsItemsViewController {
                 case .success(let response):
                     self.character.series = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.series
-                    self.itemsTable.reloadData()
-                    self.view.bringSubviewToFront(self.itemsTable)
+                    self.tableView.reloadData()
+                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
         }
     }
     
-    private func getStories() {
+    func getStories() {
         guard character.stories.isEmpty else {
             self.itemsToDisplay = character.stories
             DispatchQueue.main.async {
-                self.itemsTable.reloadData()
-                self.view.bringSubviewToFront(self.itemsTable)
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
             }
             return
         }
@@ -203,8 +162,8 @@ extension MarvelCharacterDetailsItemsViewController {
                 case .success(let response):
                     self.character.stories = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.stories
-                    self.itemsTable.reloadData()
-                    self.view.bringSubviewToFront(self.itemsTable)
+                    self.tableView.reloadData()
+                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
