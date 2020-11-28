@@ -1,11 +1,3 @@
-//
-//  ItemCell.swift
-//  MarvelSuperHeroes
-//
-//  Created by Jose Pinto on 31/05/2020.
-//  Copyright © 2020 Jose Pinto. All rights reserved.
-//
-
 import UIKit
 
 class ItemCell: UITableViewCell {

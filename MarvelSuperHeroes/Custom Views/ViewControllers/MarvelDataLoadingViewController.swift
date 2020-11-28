@@ -1,11 +1,3 @@
-//
-//  MarvelDataLoadingViewController.swift
-//  MarvelSuperHeroes
-//
-//  Created by Jose Pinto on 23/05/2020.
-//  Copyright © 2020 Jose Pinto. All rights reserved.
-//
-
 import UIKit
 
 class MarvelDataLoadingViewController: UIViewController {
@@ -36,6 +28,10 @@ class MarvelDataLoadingViewController: UIViewController {
     }
 
     func dismissLoadingView() {
+        if (containerView == nil) {
+            return
+        }
+        
         DispatchQueue.main.async {
             self.containerView.removeFromSuperview()
             self.containerView = nil

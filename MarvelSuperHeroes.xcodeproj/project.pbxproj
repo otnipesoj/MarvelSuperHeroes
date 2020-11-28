@@ -11,7 +11,7 @@
 		B73D3F0024A7A9B300D0F2BD /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73D3EFF24A7A9B300D0F2BD /* UITableViewExtensions.swift */; };
 		B7437C9524BA4EEF00130E80 /* MarvelCharacterDetailsHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7437C9424BA4EEF00130E80 /* MarvelCharacterDetailsHeaderViewController.swift */; };
 		B746F9DF247952C300AD32EA /* MarvelDataLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B746F9DE247952C300AD32EA /* MarvelDataLoadingViewController.swift */; };
-		B749199124BD94CB0025C896 /* MarvelCharacterDetailsItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B749199024BD94CB0025C896 /* MarvelCharacterDetailsItemsViewController.swift */; };
+		B749199124BD94CB0025C896 /* MarvelCharacterDetailsFooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B749199024BD94CB0025C896 /* MarvelCharacterDetailsFooterViewController.swift */; };
 		B749199324BD99410025C896 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B749199224BD99410025C896 /* UIViewExtensions.swift */; };
 		B74C845524FACCEB006154E5 /* MarvelFavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C845424FACCEB006154E5 /* MarvelFavoriteButton.swift */; };
 		B74C845824FBBC7A006154E5 /* FavouritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C845724FBBC7A006154E5 /* FavouritesRepository.swift */; };
@@ -43,6 +43,7 @@
 		B79EE11C2443756D002FD990 /* MarvelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79EE11B2443756D002FD990 /* MarvelError.swift */; };
 		B79EE11F24437A59002FD990 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79EE11E24437A59002FD990 /* CharacterCell.swift */; };
 		B79EE12224437ADF002FD990 /* MarvelCharacterThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79EE12124437ADF002FD990 /* MarvelCharacterThumbnail.swift */; };
+		B7AFAD0424FE90A50082EA90 /* MarvelCharacterItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AFAD0324FE90A50082EA90 /* MarvelCharacterItemsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +51,7 @@
 		B73D3EFF24A7A9B300D0F2BD /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
 		B7437C9424BA4EEF00130E80 /* MarvelCharacterDetailsHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCharacterDetailsHeaderViewController.swift; sourceTree = "<group>"; };
 		B746F9DE247952C300AD32EA /* MarvelDataLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelDataLoadingViewController.swift; sourceTree = "<group>"; };
-		B749199024BD94CB0025C896 /* MarvelCharacterDetailsItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCharacterDetailsItemsViewController.swift; sourceTree = "<group>"; };
+		B749199024BD94CB0025C896 /* MarvelCharacterDetailsFooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCharacterDetailsFooterViewController.swift; sourceTree = "<group>"; };
 		B749199224BD99410025C896 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		B74C845424FACCEB006154E5 /* MarvelFavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelFavoriteButton.swift; sourceTree = "<group>"; };
 		B74C845724FBBC7A006154E5 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
@@ -84,6 +85,7 @@
 		B79EE11B2443756D002FD990 /* MarvelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelError.swift; sourceTree = "<group>"; };
 		B79EE11E24437A59002FD990 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		B79EE12124437ADF002FD990 /* MarvelCharacterThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCharacterThumbnail.swift; sourceTree = "<group>"; };
+		B7AFAD0324FE90A50082EA90 /* MarvelCharacterItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCharacterItemsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +139,8 @@
 				B7840E8E2471B14A0082AAF2 /* MarvelAlertViewController.swift */,
 				B746F9DE247952C300AD32EA /* MarvelDataLoadingViewController.swift */,
 				B7437C9424BA4EEF00130E80 /* MarvelCharacterDetailsHeaderViewController.swift */,
-				B749199024BD94CB0025C896 /* MarvelCharacterDetailsItemsViewController.swift */,
+				B749199024BD94CB0025C896 /* MarvelCharacterDetailsFooterViewController.swift */,
+				B7AFAD0324FE90A50082EA90 /* MarvelCharacterItemsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 			files = (
 				B73D3F0024A7A9B300D0F2BD /* UITableViewExtensions.swift in Sources */,
 				B74C845E24FD3EE7006154E5 /* ApiClient.swift in Sources */,
+				B7AFAD0424FE90A50082EA90 /* MarvelCharacterItemsTableViewController.swift in Sources */,
 				B74C845C24FD329B006154E5 /* UICollectionViewExtensions.swift in Sources */,
 				B79EE11924437497002FD990 /* StringExtensions.swift in Sources */,
 				B7840E862471ADE90082AAF2 /* MarvelBodyLabel.swift in Sources */,
@@ -356,7 +360,7 @@
 				B7840E8C2471B0A70082AAF2 /* MarvelAlertContainerView.swift in Sources */,
 				B74EBD962483E39E005E2EBE /* ItemCell.swift in Sources */,
 				B79EE12224437ADF002FD990 /* MarvelCharacterThumbnail.swift in Sources */,
-				B749199124BD94CB0025C896 /* MarvelCharacterDetailsItemsViewController.swift in Sources */,
+				B749199124BD94CB0025C896 /* MarvelCharacterDetailsFooterViewController.swift in Sources */,
 				B79EE11F24437A59002FD990 /* CharacterCell.swift in Sources */,
 				B7840E822471AC400082AAF2 /* UIHelper.swift in Sources */,
 				B79EE111244370FC002FD990 /* Thumbnail.swift in Sources */,

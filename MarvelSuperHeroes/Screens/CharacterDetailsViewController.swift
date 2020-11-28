@@ -36,7 +36,7 @@ class CharacterDetailsViewController: UIViewController {
     
     private func configureUIElements() {
         self.add(childVC: MarvelCharacterDetailsHeaderViewController(character: character), to: headerView)
-        self.add(childVC: MarvelCharacterDetailsItemsViewController(character: character), to: itemsView)
+        self.add(childVC: MarvelCharacterDetailsFooterViewController(character: character), to: itemsView)
     }
     
     private func layoutUI() {
@@ -49,9 +49,9 @@ class CharacterDetailsViewController: UIViewController {
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            headerView.topAnchor.constraint(equalTo: view.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 120),
             
             itemsView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
@@ -59,12 +59,5 @@ class CharacterDetailsViewController: UIViewController {
             itemsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             itemsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
-    }
-    
-    private func add(childVC: UIViewController, to containerView: UIView) {
-        addChild(childVC)
-        containerView.addSubview(childVC.view)
-        childVC.view.frame = containerView.bounds
-        childVC.didMove(toParent: self)
     }
 }
