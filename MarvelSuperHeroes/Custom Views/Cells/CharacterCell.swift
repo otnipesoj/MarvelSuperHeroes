@@ -2,18 +2,12 @@ import UIKit
 
 class CharacterCell: UICollectionViewCell {
     
-    var character: Character!
-    
-    let characterThumbnail = MarvelCharacterThumbnail(frame: .zero)
     let characterName = MarvelTitleLabel(textAlignment: .center, fontSize: 16)
-    let favouriteButton = MarvelFavoriteButton(frame: .zero)
-    
-    private let favouritesRepository: FavouritesRepository = FavouritesRepositoryUserDefaults(userDefaults: UserDefaults.standard)
+    let favouriteCharacter = MarvelFavouriteCharacter(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        configureGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -21,59 +15,26 @@ class CharacterCell: UICollectionViewCell {
     }
     
     func set(character: Character) {
-        self.character = character
-        characterThumbnail.downloadImage(from: character.thumbnail.fullPath(thumbnailSize: .standardXLarge))
+        favouriteCharacter.set(character: character)
         characterName.text = character.name
-        
-        if favouritesRepository.isFavourite(character: character.id) {
-            favouriteButton.isHidden = false
-        } else {
-            favouriteButton.isHidden = true
-        }
     }
     
     private func configure() {
-        addSubview(characterThumbnail)
+        addSubview(favouriteCharacter)
         addSubview(characterName)
-        addSubview(favouriteButton)
         
         let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([
-            characterThumbnail.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            characterThumbnail.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            characterThumbnail.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            characterThumbnail.heightAnchor.constraint(equalTo: characterThumbnail.widthAnchor),
+            favouriteCharacter.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            favouriteCharacter.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            favouriteCharacter.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            favouriteCharacter.heightAnchor.constraint(equalTo: favouriteCharacter.widthAnchor),
             
-            characterName.topAnchor.constraint(equalTo: characterThumbnail.bottomAnchor, constant: 12),
+            characterName.topAnchor.constraint(equalTo: favouriteCharacter.bottomAnchor, constant: 12),
             characterName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             characterName.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            characterName.heightAnchor.constraint(equalToConstant: 20),
-            
-            favouriteButton.topAnchor.constraint(equalTo: characterThumbnail.topAnchor, constant: -6),
-            favouriteButton.leadingAnchor.constraint(equalTo: characterThumbnail.leadingAnchor, constant: -6),
-            favouriteButton.widthAnchor.constraint(equalToConstant: 20),
-            favouriteButton.heightAnchor.constraint(equalTo: favouriteButton.widthAnchor)
+            characterName.heightAnchor.constraint(equalToConstant: 20)
         ])
-    }
-    
-    private func configureGesture() {
-        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(toggleFavourite))
-        self.addGestureRecognizer(recognizer)
-    }
-    
-    @objc private func toggleFavourite(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        if gestureRecognizer.state == .began {
-            let generator = UIImpactFeedbackGenerator(style: .medium)
-            generator.impactOccurred()
-            
-            if favouritesRepository.isFavourite(character: character.id) {
-                favouritesRepository.removeFromFavourites(character: character.id)
-            } else {
-                favouritesRepository.addToFavourites(character: character.id)
-            }
-            
-            favouriteButton.isHidden = !favouriteButton.isHidden
-        }
     }
 }

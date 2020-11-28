@@ -44,7 +44,7 @@ class MarvelCharacterDetailsFooterViewController : UIViewController {
         itemsTableTopAnchorConstraint.priority = UILayoutPriority(750)
         
         NSLayoutConstraint.activate([
-            elementsSegmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
+            elementsSegmentedControl.topAnchor.constraint(equalTo: view.topAnchor),
             elementsSegmentedControlLeadingAnchorConstraint,
             elementsSegmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             

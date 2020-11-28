@@ -39,7 +39,6 @@ class MarvelCharacterItemsTableViewController : MarvelDataLoadingViewController 
     
     private func layoutTableView() {
         view.addSubview(tableView)
-        
         tableView.pinToEdges(of: view)
     }
 }
@@ -59,14 +58,10 @@ extension MarvelCharacterItemsTableViewController : UITableViewDelegate, UITable
 extension MarvelCharacterItemsTableViewController {
     func getComics() {
         guard character.comics.isEmpty else {
-            self.itemsToDisplay = character.comics
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-            }
+            itemsToDisplay = character.comics
+            tableView.reloadData()
             return
         }
-        
         
         showLoadingView()
         
@@ -79,7 +74,6 @@ extension MarvelCharacterItemsTableViewController {
                     self.character.comics = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.comics
                     self.tableView.reloadData()
-                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
@@ -88,11 +82,8 @@ extension MarvelCharacterItemsTableViewController {
     
     func getEvents() {
         guard character.events.isEmpty else {
-            self.itemsToDisplay = character.events
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-            }
+            itemsToDisplay = character.events
+            tableView.reloadData()
             return
         }
         
@@ -107,7 +98,6 @@ extension MarvelCharacterItemsTableViewController {
                     self.character.events = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.events
                     self.tableView.reloadData()
-                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
@@ -116,11 +106,8 @@ extension MarvelCharacterItemsTableViewController {
     
     func getSeries() {
         guard character.series.isEmpty else {
-            self.itemsToDisplay = character.series
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-            }
+            itemsToDisplay = character.series
+            tableView.reloadData()
             return
         }
         
@@ -135,7 +122,6 @@ extension MarvelCharacterItemsTableViewController {
                     self.character.series = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.series
                     self.tableView.reloadData()
-                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
@@ -144,11 +130,8 @@ extension MarvelCharacterItemsTableViewController {
     
     func getStories() {
         guard character.stories.isEmpty else {
-            self.itemsToDisplay = character.stories
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-            }
+            itemsToDisplay = character.stories
+            tableView.reloadData()
             return
         }
         
@@ -163,7 +146,6 @@ extension MarvelCharacterItemsTableViewController {
                     self.character.stories = response.data.results.map(Item.init)
                     self.itemsToDisplay = self.character.stories
                     self.tableView.reloadData()
-                    self.view.bringSubviewToFront(self.tableView)
                 case .failure(let error):
                     self.presentAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
                 }
