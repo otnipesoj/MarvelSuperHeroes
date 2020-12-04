@@ -22,6 +22,7 @@
 		B74C846224FD4650006154E5 /* ImagesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C846124FD4650006154E5 /* ImagesApi.swift */; };
 		B74C846424FD473A006154E5 /* CharacterDetailsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C846324FD473A006154E5 /* CharacterDetailsApi.swift */; };
 		B74EBD962483E39E005E2EBE /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74EBD952483E39E005E2EBE /* ItemCell.swift */; };
+		B75745C3257A7E6E0046ABB5 /* MarvelFavouriteCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75745C2257A7E6E0046ABB5 /* MarvelFavouriteCharacter.swift */; };
 		B7840E79247170CC0082AAF2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7840E78247170CC0082AAF2 /* Constants.swift */; };
 		B7840E7C247171E90082AAF2 /* MarvelTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7840E7B247171E90082AAF2 /* MarvelTitleLabel.swift */; };
 		B7840E822471AC400082AAF2 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7840E812471AC400082AAF2 /* UIHelper.swift */; };
@@ -62,6 +63,7 @@
 		B74C846124FD4650006154E5 /* ImagesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesApi.swift; sourceTree = "<group>"; };
 		B74C846324FD473A006154E5 /* CharacterDetailsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsApi.swift; sourceTree = "<group>"; };
 		B74EBD952483E39E005E2EBE /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		B75745C2257A7E6E0046ABB5 /* MarvelFavouriteCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarvelFavouriteCharacter.swift; sourceTree = "<group>"; };
 		B7840E78247170CC0082AAF2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B7840E7B247171E90082AAF2 /* MarvelTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelTitleLabel.swift; sourceTree = "<group>"; };
 		B7840E812471AC400082AAF2 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		B7840E8A2471B08A0082AAF2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B75745C2257A7E6E0046ABB5 /* MarvelFavouriteCharacter.swift */,
 				B7840E8B2471B0A70082AAF2 /* MarvelAlertContainerView.swift */,
 			);
 			path = Views;
@@ -348,6 +351,7 @@
 				B74C845C24FD329B006154E5 /* UICollectionViewExtensions.swift in Sources */,
 				B79EE11924437497002FD990 /* StringExtensions.swift in Sources */,
 				B7840E862471ADE90082AAF2 /* MarvelBodyLabel.swift in Sources */,
+				B75745C3257A7E6E0046ABB5 /* MarvelFavouriteCharacter.swift in Sources */,
 				B74C845824FBBC7A006154E5 /* FavouritesRepository.swift in Sources */,
 				B7840E842471AD730082AAF2 /* UIViewControllerExtensions.swift in Sources */,
 				B74C845524FACCEB006154E5 /* MarvelFavoriteButton.swift in Sources */,
